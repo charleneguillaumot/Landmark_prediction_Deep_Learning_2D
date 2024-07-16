@@ -1,8 +1,18 @@
 # Landmark_prediction_Deep_Learning_2D
 Use of Xception, ResNet101 and VIT Deep Learning model architectures to predict landmarks positioning on 3D mesh models using their parameterization in 2D subsets 
 
-## Détailler le projet ici
+## Description of the project 
+xxxx détailler 
 Input : 
+- 3D mesh models (.ply files)
+- landmarks
+- landmark ALPACA predictions (see Step 0 below)
+
+Output: 
+-Deep Learning landmark prediction
+
+xxx Pluggin Slicer ????
+
 
 ## Pipeline 
 ### Folder arborescence 
@@ -15,5 +25,8 @@ otherwise, we developped a script for running ALPACA in batch, with varying alph
 Please see the code and procedure at https://github.com/charleneguillaumot/ALPACA_from_terminal
 
 ### Step 1. Rework initial ply files 
+In the next step (Step 2), need to have proper .ply files to be able to subset inside and outside layers of the mesh 
+For that, coloration by ambient occlusion is necessary 
+The "1_Rework_initial_ply_files.py" file simply loads your .ply files, colorizes them by an ambient occlusion filter and save a copy in your folder.
 
 ### Step 2. 
