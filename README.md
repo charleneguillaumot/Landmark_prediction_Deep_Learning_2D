@@ -16,8 +16,22 @@ METTRE ICI L'IMAGE BILAN de la méthode
 
 ## Pipeline 
 ### Folder arborescence 
-Détailler ici les dossiers et leurs contenus 
+The arborescence is the following 
+> DATAS_prep
+	> INDIVIDUALS
+		> Mandible_primates
+			> landmarks_folder: contains the list of .fscv files detailling the (x,y,z) position of the ground truth images
+			> surfaces_folder: containts the 3D surface .ply files (surface mesh models)
+			> [output_alpaca]: folder generated at step 0
+	>AREAS_AROUND_LANDMARKS
+		> [LDS_nb]: for each studied landmark, an equivalent folder will be generated
+			> [colorless] : folder created at step 2, contains the subsets of the whole 3D surface initial files in the area of interest (ALPACA's predictions used as barycenters)
+			> [RAW_uvmapping/output_lscm]: folder generated at step 4 which contains the parameterized .obj files
+			> [RASTERS_tif]: folder generated at step 5 which contains the rasters .tif files, which are sorted in 3 subfolders (AO, VO, CUR) at step 6
+			> [LDS_uv_coords]: folder created during step 7 which contains .txt files with the coordinates of the ground truth landmark positions in the 2D space
 
+The steps to generate the training images are the following: 
+ 
 ### Step 0. Generate ALPACA's landmark predictions 
 The aim is to have, for each individual, several sets of landmarks predictions (ALPACA) that will play the role of barycenters in Step 2, to extract small portions of the 3D meshes in the area of interest of a landmark 
 You can generate the landmark predictions using the software Slicer and the SlicerMorph pluggin manually if you want, 
@@ -45,3 +59,14 @@ for file in $(find "$data_directory" -name "*.obj"); do
 	./parameterization "$file"
 done
 The parameterized images are then saved in the build/output_lscm directory 
+
+
+### Step 5. Rasterization of the parameterized images
+The .obj files are then opened in R, and rasterized into a flat 2D images of 224x224 pixel dimension (extent 0.1x0.1), colorized by the color texture saved in the .obj file and saved as a .tif file for the next steps 
+
+### Step 6. Cleaning and sorting of raster tif files 
+The tif files are loaded and analysed to spot images that are mostly black (empty pixels, the ones for which the parameterization did not work). The threshold was set up at 99% of black pixels. Some trials were performed with a variation at 95%, showing no significant modifications in model performances final results. The files are then sorted in  different folders according to their color (AO : ambient occlusion, VO: volumetric obscurance, CUR: APSS curvature).
+
+### Step 7. Transfer the 3D ground truth landmark positions on the 2D space 
+Using the KDtree approach from the scipy library, the last step is to prepare the list of ground truth coordinates in the 2D space for model training along with the raster images. 
+
