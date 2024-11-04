@@ -17,18 +17,18 @@ METTRE ICI L'IMAGE BILAN de la méthode
 ## Pipeline 
 ### Folder arborescence 
 The arborescence is the following 
-> DATAS_prep
-	> INDIVIDUALS
-		> Mandible_primates
-			> landmarks_folder: contains the list of .fscv files detailling the (x,y,z) position of the ground truth images
-			> surfaces_folder: containts the 3D surface .ply files (surface mesh models)
-			> [output_alpaca]: folder generated at step 0
-	>AREAS_AROUND_LANDMARKS
-		> [LDS_nb]: for each studied landmark, an equivalent folder will be generated
-			> [colorless] : folder created at step 2, contains the subsets of the whole 3D surface initial files in the area of interest (ALPACA's predictions used as barycenters)
-			> [RAW_uvmapping/output_lscm]: folder generated at step 4 which contains the parameterized .obj files
-			> [RASTERS_tif]: folder generated at step 5 which contains the rasters .tif files, which are sorted in 3 subfolders (AO, VO, CUR) at step 6
-			> [LDS_uv_coords]: folder created during step 7 which contains .txt files with the coordinates of the ground truth landmark positions in the 2D space
+* DATAS_prep
+	1. INDIVIDUALS
+		* Mandible_primates
+			1. landmarks_folder: contains the list of .fscv files detailling the (x,y,z) position of the ground truth images
+			2. surfaces_folder: containts the 3D surface .ply files (surface mesh models)
+			3. [output_alpaca]: folder generated at step 0
+	2. AREAS_AROUND_LANDMARKS
+		* [LDS_nb]: for each studied landmark, an equivalent folder will be generated
+			1. [colorless] : folder created at step 2, contains the subsets of the whole 3D surface initial files in the area of interest (ALPACA's predictions used as barycenters)
+			2. [RAW_uvmapping/output_lscm]: folder generated at step 4 which contains the parameterized .obj files
+			3. [RASTERS_tif]: folder generated at step 5 which contains the rasters .tif files, which are sorted in 3 subfolders (AO, VO, CUR) at step 6
+			4. [LDS_uv_coords]: folder created during step 7 which contains .txt files with the coordinates of the ground truth landmark positions in the 2D space
 
 The steps to generate the training images are the following: 
  
