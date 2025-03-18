@@ -52,7 +52,7 @@ filenames_folder_skulls <- list.files(folder_skulls, full.names = TRUE)
 # LOAD THE LANDMARKS
 #--------------------
 # Loop per individual -> future_map
-for (DIR in DIRnames_lds_dir[1]){
+for (DIR in DIRnames_lds_dir){
   subset_mesh_list <- function(DIR){  
   INDI_SELECT <- basename(DIR) #-> basename was not in the original code, replace by DIR but to check ?
   filename_lds <- list.files(DIR)
@@ -126,5 +126,5 @@ for (DIR in DIRnames_lds_dir[1]){
 }}}
 
 plan(multisession, workers = n_cores)
-furrr::future_map(DIRnames_lds_dir[1], subset_mesh_list)
+furrr::future_map(DIRnames_lds_dir, subset_mesh_list)
 #plan(sequential)
