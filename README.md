@@ -2,12 +2,12 @@
 Use of Xception, ResNet101 and VIT Deep Learning model architectures to predict landmarks positioning on 3D mesh models using their parameterization in 2D subsets 
 
 ## Description of the project 
-The developed pipeline starts with approximate landmark predictions obtained from the ALPACA global registration of a reference model on the object (Porto et al. 2021), a step which remains specific, and uses these predictions to subset the surface. The resulting local 3D surfaces are then parameterized in 2D images and colorized to enhance geometric features (ridges, flaws, hollows…) according to differential geometry and ambient lighting algorithms. The resulting raster images, quite generic to any bone structures, are associated with the manual landmark positions to train one Transformer and two Convolutional Neural Network (CNN) architectures. 
+The developed pipeline starts with approximate landmark predictions obtained from a rigid registration of a reference model on the object (Porto et al. 2021), a step which remains specific, and uses these predictions to subset the surface. The resulting local 3D surfaces are then parameterized in 2D images and colorized to enhance geometric features (ridges, flaws, hollows…) according to differential geometry and ambient lighting algorithms. The resulting raster images, quite generic to any bone structures, are associated with the manual landmark positions to train one Transformer and two Convolutional Neural Network (CNN) architectures. 
 
 Input : 
 - 3D mesh models (.ply files)
 - landmarks
-- landmark ALPACA predictions (see Step 0 below)
+- landmark rigid predictions (see Step 0 below)
 
 Output: 
 -Deep Learning landmark prediction (x, y) position 
@@ -33,12 +33,11 @@ The arborescence is the following
 
 The steps to generate the training images are the following: 
  
-### Step 0. Generate ALPACA's landmark predictions 
-The aim is to have, for each individual, several sets of landmarks predictions (ALPACA) that will play the role of barycenters in Step 2, to extract small portions of the 3D meshes in the area of interest of a landmark 
+### Step 0. Generate rigid registration landmark predictions 
+The aim is to have, for each individual, several sets of landmarks predictions (rigid registration procedure) that will play the role of barycenters in Step 2, to extract small portions of the 3D meshes in the area of interest of a landmark.
 You can generate the landmark predictions using the software Slicer and the SlicerMorph pluggin manually if you want, 
-otherwise, we developped a script for running ALPACA in batch, with varying alpha and beta parameters (to have several ALPACA predictions replicates efficiently)
-Please see the code and procedure at https://github.com/charleneguillaumot/ALPACA_from_terminal
-In our code, we used 4 ALPACA's predictions.
+otherwise, we developped a script for running it in batch, with four randomly selected source models (to have several barycenters replicates)
+Please see the code and procedure at https://github.com/charleneguillaumot/ALPACA_from_terminal.
 
 ### Step 1. Rework initial ply files 
 In the next step (Step 2), we will need to have proper .ply files to be able to split the inside and outside layers of the mesh. For that, coloration by ambient occlusion is necessary. 
