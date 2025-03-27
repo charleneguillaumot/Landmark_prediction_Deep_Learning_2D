@@ -18,18 +18,19 @@ Output:
 ## Pipeline 
 ### Folder arborescence 
 The arborescence is the following 
-* DATAS_prep
-	1. INDIVIDUALS
-		* Mandible_primates
-			1. landmarks_folder: contains the list of .fscv files detailling the (x,y,z) position of the ground truth images
-			2. surfaces_folder: containts the 3D surface .ply files (surface mesh models)
-			3. [output_alpaca]: folder generated at step 0
-	2. AREAS_AROUND_LANDMARKS
+* data
+  *cranes_souris
+	1. output_rigid
+	2. Skull_Landmarks
+ 	3. Skull_Surfaces
+  	4. Skull_Surfaces_sources
+	5. AREAS_AROUND_LANDMARKS_cranes_souris
 		* [LDS_nb]: for each studied landmark, an equivalent folder will be generated
 			1. [colorless] : folder created at step 2, contains the subsets of the whole 3D surface initial files in the area of interest (ALPACA's predictions used as barycenters)
-			2. [RAW_uvmapping/output_lscm]: folder generated at step 4 which contains the parameterized .obj files
-			3. [RASTERS_tif]: folder generated at step 5 which contains the rasters .tif files, which are sorted in 3 subfolders (AO, VO, CUR) at step 6
-			4. [LDS_uv_coords]: folder created during step 7 which contains .txt files with the coordinates of the ground truth landmark positions in the 2D space
+  			2. [colored]: folder created at step 3, contains the colored mesh subsets produced during step 2.
+			3. [param]: folder generated at step 4 which contains the parameterized .obj files
+			4. [RASTERS_tif]: folder generated at step 5 which contains the rasters .tif files, which are sorted in 3 subfolders (AO, VO, CUR) at step 6
+			5. [LDS_uv_coords]: folder created during step 7 which contains .txt files with the coordinates of the ground truth landmark positions in the 2D space
 
 The steps to generate the training images are the following: 
  
@@ -51,17 +52,14 @@ This enables to have as outputs little 3D objects, where we will perform the lan
 The little mesh subsets needs to be colorized before being parameterized and converted into raster images. The Python code "3_Colorize_mesh_subsets.py" loads the 3D little images, clean them (closing holes, manifoldness correction) before colorizing them in 3 different channels (ambient occlusion, volumetric obscurance and APSS curvature). For one 3D little subset, 3 colorized little subsets are created and saved as .obj files. 
 
 ### Step 4. Parameterization of the colorized subsets 
-The colorized subsets are transfered into the data/obj folder of the pmp-library architecture. The pmp library used in this project was modified from the one developed in https://www.pmp-library.org/ to enhance its calculation performances by removing several Viewer modules. To set it up, download the pmp-library from this previous website, and modify the examples/parameterization.cpp file by the one provided in this github repo.
+The colorized 3D subsets are transfered into the data/obj folder of the pmp-library architecture to be parameterized in 2D. The pmp library used in this project was modified from the one developed in https://www.pmp-library.org/ to enhance its calculation performances by removing several Viewer modules. The LSCM parameterization was chosen due to better performances rendering compared to the harmonical one with preliminary tests. To set it up, download the pmp-library from the https://www.pmp-library.org/ website in a Linux environment, and modify the examples/parameterization.cpp file by the one provided in this github repo. Similarly, change the src/pmp/io/write_obj.cpp by the one provided. Then, configure and build :  cd pmp-library && mkdir build && cd build && cmake .. && make
 
-
-The folder must be in a Linux environment (procédure pour lancer ? cmake, make et voilà?)
-Expliquer le choix LSCM
-Once the files to be parameterized transfered in the data/obj folder, access the build folder and do 
+Move the files to be parameterized in the data/obj folder, access the build folder and do :
 data_directory="../data/obj/"
 for file in $(find "$data_directory" -name "*.obj"); do
 	./parameterization "$file"
 done
-The parameterized images are then saved in the build/output_lscm directory 
+The parameterized images are then computed and saved in the build/output_lscm directory. Save them in the "param" folder in your arborescence.
 
 
 ### Step 5. Rasterization of the parameterized images
