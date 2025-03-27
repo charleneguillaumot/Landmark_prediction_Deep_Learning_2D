@@ -76,7 +76,7 @@ def process_mesh(filename, working_path, lds_dir, colorless_dir):
     
     # Curvature (CUR)
     ms.apply_filter("compute_curvature_and_color_apss_per_vertex")
-    ms.save_current_mesh(os.path.join(lds_dir, file_name + "_CUR1.obj"))
+    ms.save_current_mesh(os.path.join(lds_dir, file_name + "_CUR.obj"))
     
     # Volumetric Obscurance (VO)
     ms.load_filter_script(os.path.join(working_path, "volumetric_obscurance.mlx"))
@@ -115,7 +115,7 @@ if __name__ == "__main__":
     # Working directories and files
     #"C:/Users/ch1371gu/Desktop/POSTE BIOGEOSCIENCES/Projet Ecol+/MAPPING/"
     working_path = "C:/Users/ch1371gu/Desktop/POSTE BIOGEOSCIENCES/Projet Ecol+/MAPPING/PIPELINE_CODES/pipeline_codes_repris_Nico/"
-    lds_dir = f"{working_path}data/{species}/AREAS_AROUND_LANDMARKS_{species}/LDS_{LDS}/"
+    lds_dir = f"{working_path}data/{species}/AREAS_AROUND_LANDMARKS_{species}/LDS_{LDS}/colored/"
     colorless_dir = os.path.join(lds_dir, "colorless")
 
     files = [f for f in os.listdir(colorless_dir) if f.endswith('.ply')]  # Filter only mesh files
