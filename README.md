@@ -51,7 +51,10 @@ This enables to have as outputs little 3D objects, where we will perform the lan
 The little mesh subsets needs to be colorized before being parameterized and converted into raster images. The Python code "3_Colorize_mesh_subsets.py" loads the 3D little images, clean them (closing holes, manifoldness correction) before colorizing them in 3 different channels (ambient occlusion, volumetric obscurance and APSS curvature). For one 3D little subset, 3 colorized little subsets are created and saved as .obj files. 
 
 ### Step 4. Parameterization of the colorized subsets 
-The colorized subsets are transfered into the data/obj folder of the pmp-library architecture. The pmp library used in this project was modified from the one developed in https://www.pmp-library.org/ to enhance its calculation performances by removing several Viewer modules. The folder must be in a Linux environment (procédure pour lancer ? cmake, make et voilà?)
+The colorized subsets are transfered into the data/obj folder of the pmp-library architecture. The pmp library used in this project was modified from the one developed in https://www.pmp-library.org/ to enhance its calculation performances by removing several Viewer modules. To set it up, download the pmp-library from this previous website, and modify the examples/parameterization.cpp file by the one provided in this github repo.
+
+
+The folder must be in a Linux environment (procédure pour lancer ? cmake, make et voilà?)
 Expliquer le choix LSCM
 Once the files to be parameterized transfered in the data/obj folder, access the build folder and do 
 data_directory="../data/obj/"
