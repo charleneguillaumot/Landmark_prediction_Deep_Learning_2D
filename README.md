@@ -12,8 +12,7 @@ Input :
 Output: 
 -Deep Learning landmark prediction (x, y) position 
 
-![image](https://github.com/user-attachments/assets/05bc907f-c3a5-481a-8717-97cd86f29daf)
-
+![Figure 2_ planche method](https://github.com/user-attachments/assets/aa26ba07-f798-466e-bd44-67dfad2d2640)
 
 ## Pipeline 
 ### Folder arborescence 
