@@ -17,8 +17,8 @@ Output:
 ## Pipeline 
 ### Folder arborescence 
 The arborescence is the following 
-*data
-  ** cranes_souris
+* data
+  - cranes_souris
 	1. output_rigid
 	2. Skull_Landmarks
  	3. Skull_Surfaces
