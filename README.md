@@ -70,3 +70,5 @@ The tif files are loaded and analysed to spot images that are mostly black (empt
 ### Step 7. Transfer the 3D ground truth landmark positions on the 2D space 
 Using the KDtree approach from the scipy library, the last step is to prepare the list of ground truth coordinates in the 2D space for model training along with the raster images. 
 
+### Final step. Models scripts 
+You will also find the Xception, ResNet101 and VIT model architectures used to train these models in the list of files below.
